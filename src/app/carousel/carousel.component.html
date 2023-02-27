@@ -1,0 +1,13 @@
+<p-carousel [value]="tutorials" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions" [circular]="true" >
+    <ng-template pTemplate="header">
+    </ng-template>
+    <ng-template let-product pTemplate="item">
+        <div class="product-item">
+            <div class="product-item-content">
+                <div>
+                    <img [src]="product.image" style="width: 100%;">
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>

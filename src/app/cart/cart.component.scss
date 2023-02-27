@@ -1,0 +1,22 @@
+.product-quantity{
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 6px;
+    height: 3rem;
+    width: 4rem;
+}
+.sidelist {
+	background: #f8f9fa;
+	border: 1px solid #dee2e6;
+	border-width: 1px 0 1px 0;
+	padding: 1rem 1rem;
+	font-weight: 700;
+}
+.p-inputnumber-input {
+    width: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+}

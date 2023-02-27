@@ -1,0 +1,101 @@
+<div class="surface-section px-2 py-5 md:px-6 lg:px-7">
+    <div class="text-700 font-bold text-3xl text-center">
+        <span class="border-bottom-2 border-green-500" style="width: 15%;">
+            {{'login.ProductTitle' | translate}}
+        </span>
+    </div>
+    <p class="text-800 font-normal text-xl text-center">{{'login.ProductsubTitle' | translate}}</p><p-divider
+        class="p-element w-full">
+        <div role="separator" class="p-divider p-component p-divider-horizontal p-divider-solid p-divider-left">
+            <div class="p-divider-content"></div>
+        </div>
+    </p-divider>
+    <div class="flex flex-wrap lg:flex-nowrap">
+        <div class="w-full border-1 border-round surface-border surface-section mt-3 lg:mt-0"
+            style="min-height: 25rem;">
+            <p-dataView #dv [value]="'data'| translate" [paginator]="true" [rows]="12" filterBy="name"
+                [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+                <ng-template pTemplate="header">
+                    <div class="flex flex-column md:flex-row sm:justify-content-between justify-content-center flex-wrap align-items-center">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price"
+                            (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                        <p-dropdown [options]="sortCategory" [(ngModel)]="sortKeyCat" placeholder="Sort By category"
+                            (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                        <p-dropdown [options]="sortStock" [(ngModel)]="sortKeystock" placeholder="Sort By Stock"
+                            (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                        <span class="p-input-icon-left mb-2 md:mb-0">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dv.filter(getEventValue($event), 'contains')"
+                                placeholder="Search keyword" />
+                        </span>
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                </ng-template>
+                <ng-template let-product pTemplate="listItem">
+                    <div class="col-12">
+                        <div class="product-list-item">
+                            <img [src]="product.image" class="mb-3">
+                            <div class="product-list-detail">
+                                <i class="pi pi-tag product-category-icon"></i><span
+                                    class="product-category">{{product.category}}</span>
+                                <div class="product-name">{{product.name}}</div>
+                                <!-- <div class="product-description">{{product.description}}</div> -->
+                                <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
+                            </div>
+                            <div class="product-list-action">
+                                <span class="product-price">₹{{product.price}}/Kg</span>
+                                <p-button icon="pi pi-shopping-cart" label="Add to Cart"
+                                    [disabled]="product.inventoryStatus === 'Out-Of-Stock'"
+                                    (onClick)="addToCart(product)"></p-button>
+                                <span
+                                    [class]="'product-badge status-' + product.inventoryStatus">{{product.inventoryStatus}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template let-product pTemplate="gridItem">
+                    <div class="col-6 sm:col-6 md:col-4 lg:col-2">
+                        <div class="product-grid-item card">
+                            <div class="product-grid-item-top">
+                                <div>
+                                    <i class="pi pi-tag product-category-icon"></i>
+                                    <span class="product-category">{{product.category}}</span>
+                                </div>
+                                <span
+                                    [class]="'product-badge status-' + product.inventoryStatus">{{product.inventoryStatus}}</span>
+                            </div>
+                            <div class="product-grid-item-content">
+                                <img [src]="product.image" class="mb-3">
+                                <div class="product-name">{{product.name}}</div>
+                            </div>
+                            <div class="product-grid-item-bottom">
+                                <span class="product-price">₹{{product.price}}/kg</span>
+                                <p-button icon="pi pi-shopping-cart"
+                                    [disabled]="product.inventoryStatus === 'Out-Of-Stock'"
+                                    (onClick)="addToCart(product)"></p-button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+    </div>
+    <p-toast position="bottom-center" key="s" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-toast>
+    <p-toast position="top-center" key="e" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-toast>
+</div>
+<p-carousel [value]="products" styleClass="custom-carousel" [showNavigators]="true" [showIndicators]="false" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
+    <ng-template let-product pTemplate="item">
+        <div class="product-item surface-card">
+            <div class="product-item-content">
+                <div class="p-mb-3">
+                    <img class="product-image" [src]="product.image" alt="Chakra Bracelet">
+                </div>
+                <div class="p-2">
+                    <div class="text-900 text-xl font-medium mb-2">{{product.discountprice | currency:'INR'}}</div>
+                    <div class="mb-2"><span class="text-600 line-through">{{product.price | currency:'INR'}}</span><span class="ml-2 text-pink-500 font-medium">%{{discount}}</span></div>
+                    <span class="text-900">{{product.name}}</span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>

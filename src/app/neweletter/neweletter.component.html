@@ -1,0 +1,31 @@
+<ng-container *ngIf="Hidediv">
+    <div class="surface-section text-center px-4 py-8 md:px-6 lg:px-8">
+        <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit()">
+        <div class="bg-blue-50 text-blue-600 font-bold border-round px-2 py-1 mx-auto mb-3" style="max-width: 350px;">
+            🔥&nbsp;{{'login.newsletterheading1'| translate}}</div>
+        <div class="text-2xl text-900 font-bold mb-3">{{'login.newsletterheading2'| translate}}</div>
+        <div class="flex align-items-center justify-content-center">       
+            <input formControlName="email"  [class.is-invalid]="email.invalid && (email.dirty)"  placeholder="{{'login.newsletterplaceholder'| translate}}" class="p-inputtext p-component p-element p-3 border-noround border-round-left" style="min-width: 250px;" minlength="1" maxlength="250" >
+                <button type="submit" class="p-element p-ripple border-noround border-round-right p-3 w-auto p-button p-component p-button-icon-only cursor-pointer">
+                 {{'login.newsletterbutton'| translate}}
+                </button>
+        </div>
+        <div *ngIf="email.invalid && (email.dirty)" class="is-invalid">
+            <div *ngIf="email.errors?.['required']">
+              This field is required.
+            </div>
+          </div>
+        {{messages}}
+    </form>
+    </div>
+</ng-container>
+<ng-container *ngIf="showMsg">
+    <div class="css-o5m47r"><span class="css-cjoyv0"><svg class="css-on31sd" viewBox="0 0 512 512">
+                <path
+                    d="M464 4.3L16 262.7C-7 276-4.7 309.9 19.8 320L160 378v102c0 30.2 37.8 43.3 56.7 20.3l60.7-73.8 126.4 52.2c19.1 7.9 40.7-4.2 43.8-24.7l64-417.1C515.7 10.2 487-9 464 4.3zM192 480v-88.8l54.5 22.5L192 480zm224-30.9l-206.2-85.2 199.5-235.8c4.8-5.6-2.9-13.2-8.5-8.4L145.5 337.3 32 290.5 480 32l-64 417.1z">
+                </path>
+            </svg></span>
+        <p class="css-16ceglb">We've sent a confirmation email;<br>click on the link to complete your subscription to
+            this newsletter.</p>
+    </div>
+</ng-container>

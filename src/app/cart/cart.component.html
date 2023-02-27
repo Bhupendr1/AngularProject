@@ -1,0 +1,81 @@
+
+
+<ng-container *ngIf="cart.length > 0">
+            <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+                    <form [formGroup]="checkoutForm"><div class="flex flex-column align-items-center mb-6">
+                        <div class="text-900 text-4xl mb-4 font-medium text-center" formControlName="Price">Your cart total is {{ getTotal() | currency:'INR' }}</div>
+                    <button pbutton type="button" (click)="checkOut()" 
+                            pripple="" label="Check Out" class="p-element p-ripple p-button p-component"><span
+                                class="p-button-label">Check Out</span><span class="p-ink"></span></button>
+                    </div>         
+                  </form>
+                    <ul class="list-none p-0 m-0" *ngFor="let item of cart">
+                        <li
+                            class="flex flex-column md:flex-row py-6 border-top-1 border-bottom-1 surface-border md:align-items-center">
+                                <img [src]="item.image" class="w-12rem flex-shrink-0 mx-auto md:mx-0" style="width: 200px; height: 200px;">
+                            <div class="flex-auto py-5 md:pl-5">
+                                <div
+                                    class="flex flex-wrap align-items-start sm:align-items-center sm:flex-row sm:justify-content-between surface-border pb-6">
+                                    <div class="w-full sm:w-6 flex flex-column"><span
+                                            class="text-900 text-xl font-medium mb-3">{{item.name}}</span>
+                                    </div>
+                                    <div
+                                        class="w-full sm:w-6 flex align-items-start justify-content-between mt-3 sm:mt-0">
+                                        
+                                            <div class="inline-flex w-full">
+                                               
+                                                <button type="button" fill="clear"  (click)="decreaseCartItem(item)" class="p-element p-button-danger p-inputnumber-button p-inputnumber-button-down p-button p-component p-button-icon-only ng-star-inserted" [disabled]="item.qty == 1">
+                                                    <span class="p-button-icon pi pi-minus" aria-hidden="true"></span>
+                                                   </button>
+                                               
+                                               <!-- <ng-template>
+                                                <button type="button" fill="clear" disabled  class="p-element p-button-danger p-inputnumber-button p-inputnumber-button-down p-button p-component p-button-icon-only ng-star-inserted">
+                                                    <span class="p-button-icon pi pi-minus" aria-hidden="true"></span>
+                                                   </button>
+                                               </ng-template> -->
+                                            <div class="p-inputnumber-input">
+                                                {{ item.qty }}
+                                            </div>
+                                               
+
+                                                <button type="button" (click)="increaseCartItem(item)" class="p-element p-button-success p-inputnumber-button p-inputnumber-button-up p-button p-component p-button-icon-only ng-star-inserted">
+                                                    <span class="p-button-icon pi pi-plus" aria-hidden="true"></span>
+                                                </button>
+                                            
+                                            </div>
+                                      
+                                        <div class="flex flex-column sm:align-items-end"><span
+                                                class="text-900 text-2xl font-medium mb-2 sm:mb-3">{{ item.qty * item.price | currency:'INR' }}</span>
+                                                
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            
+                                        <span class="flex flex-column">
+                                        <a tabindex="0"  (click)="removeCartItem(item.id)"
+                                        class="cursor-pointer text-pink-500 font-medium hover:text-pink-600 transition-colors transition-duration-300">
+                                        Remove Item
+                                    </a>
+                            
+                                </span>
+                                     </div>
+                        </li>
+                    </ul>
+                </div>
+
+
+    <p-toast position="bottom-center" key="st" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-toast>
+</ng-container>
+<ng-container *ngIf="cart.length === 0">
+    <div class="flex flex-column" style="height: 100vh;">
+
+                <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+                    <div class="flex flex-column align-items-center mb-6">
+                        <div class="text-900 text-4xl mb-4 font-medium text-center">Your cart is Empty</div>
+                        <p class="text-600 font-medium text-xl mt-0 mb-4">Add some Product</p><button pbutton=""  routerLink="/"
+                            pripple="" label="Check Out" class="p-element p-ripple p-button p-component"><span
+                                class="p-button-label">Add Now</span><span class="p-ink"></span></button>
+                    </div>
+                </div>
+    </div>
+</ng-container>

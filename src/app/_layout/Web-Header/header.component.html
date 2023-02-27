@@ -1,0 +1,170 @@
+<!-- <div class="layout-topbar logo-container">
+    <div
+        class="flex flex-column lg:flex-row lg:align-items-center justify-content-between headerborder surface-card px-3">
+        <div class="flex align-items-center justify-content-center">
+            <img src="assets/image/logo.png" alt="Image" height="70" routerLink="/" class="cursor-pointer">
+        </div>
+        <div class=" flex1 sm:w-auto lg:ml-8 gap-3" >
+            <a class="text-700 cursor-pointer  lg:mb-0  no-underline" routerLinkActive="routeactive" [routerLinkActiveOptions]="{exact:true}" routerLink="/">
+                {{'login.Home'|translate}}
+            </a>
+                <a class="text-700 cursor-pointer lg:mb-0 ml-0 lg:ml-4">
+                    {{'login.Products'|translate}}
+                </a>
+            <div class="border-400 border-round relative">
+                <div class="flex align-items-center p-0 m-0 lg:px-5 lg:py-1 text-700 cursor-pointer" pStyleClass="@next" appendTo="body"
+                    enterClass="hidden" enterActiveClass="scalein" leaveToClass="hidden" leaveActiveClass="fadeout"
+                    [hideOnOutsideClick]="true">
+                    <span>{{'login.Supports'|translate}}</span>
+                    <i class=" pi pi-chevron-down ml-2 mt-1"></i>
+                </div>
+                <div class="absolute shadow-2 min-w-full hidden mt-2" style="z-index: 10000;">
+                    <ul class="list-none p-0 m-0" style="width: 10rem;">
+                        <li><a href=""
+                                class="block text-center  py-3 no-underline text-900 hover:bg-gray-200 transition-all  cursor-pointer surface-card">{{'login.DeliveryPolicy'|translate}}</a>
+                        </li>
+                        <li><a href=""
+                                class="block text-center  py-3 no-underline text-900 hover:bg-gray-200 transition-all  cursor-pointer surface-card">{{'login.PrivacyPolicy'|translate}}</a>
+                        </li>
+                        <li><a href=""
+                                class="block  text-center py-3 no-underline text-900 hover:bg-gray-200 transition-all  cursor-pointer surface-card">{{'login.ReturnExchange'|translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <a class="text-700 cursor-pointer lg:mb-0 ml-0  no-underline" routerLinkActive="routeactive"
+                routerLink="/Aboutus">{{'login.About-Us'|translate}}</a>
+        </div>
+        <div class="lg:flex w-full lg:w-auto py-3 lg:py-0">
+            <ul class="list-none p-0 m-0 flex w-full" style="min-height: 46px;">
+                <li class="flex2 lg:flex-initial"><a pripple=""
+                        class=" lg:px-3 "><img src="assets/image/england.png" alt="england flag"
+                        [class.active]="switchlang=='products'" class="cursor-pointer"
+                        (click)="useLanguage('products')"></a></li>
+                       <li class="flex2 lg:flex-initial"><a href="" class=" lg:px-1 ">|</a></li>
+                <li class="flex2 lg:flex-initial"><a pripple=""
+                        class=" lg:px-3 "><img src="assets/image/vietnam.png" alt="england flag" [class.active]="switchlang=='tamil'" class="cursor-pointer" (click)="useLanguage('tamil')"></a></li>
+                        <li class="flex2 lg:flex-initial"><a href="" class=" lg:px-1 ">|</a></li>
+                        <li class="flex2 lg:flex-initial"><a pripple="" [routerLink]="['/cart']"
+                        class=" no-underline lg:pl-3 pr-3 ">
+                        <i pBadge class="pi pi-shopping-cart ng-cart text-xl p-overlay-badge" severity="success"
+                        value={{cartCount}}>
+                    </i>
+                        <span class="hidden">Cart</span><span
+                            class="p-ink"></span></a></li>
+            </ul>
+        </div>
+
+    </div>
+</div> -->
+
+<!-- <div class="surface-overlay py-1 lg:px-1 shadow-2 flex align-items-center  relative lg:static logo-container"> -->
+    <div class="layout-topbar logo-container">
+        <div class="flex flex-column lg:flex-row lg:align-items-center justify-content-between headerborder surface-card px-3">
+    <div class="flex align-items-center justify-content-center">
+        <img src="assets/image/logo.png" alt="Image" height="80" routerLink="/" class="cursor-pointer">
+    </div>
+    <div class="flex flex-grow-1 justify-content-end gap-3 align-items-center">
+        <ul class="list-none flex1 gap-2 lg:hidden">
+            <li>
+                <a pripple="">
+                    <img src="assets/image/england.png" alt="england flag" [class.active]="switchlang=='products'"
+                        class="cursor-pointer" (click)="useLanguage('products')">
+                </a>
+            </li>
+            <li>
+                <a pripple=""> 
+                    <i class="pi pi-minus rotate-90"></i>
+                </a>
+            </li>
+            <li class="">
+                <a pripple="">
+                    <img src="assets/image/vietnam.png" alt="england flag" [class.active]="switchlang=='tamil'"
+                        class="cursor-pointer" (click)="useLanguage('tamil')">
+                </a>
+            </li>
+            <li>
+                <a pripple="">
+                    <i class="pi pi-minus rotate-90"></i>
+                </a>
+            </li>
+            <li>
+                <a pripple=""  routerLink="/cart">
+                    <i pBadge class="pi pi-shopping-cart ng-cart text-xl p-overlay-badge" severity="success"
+                        value={{cartCount}}></i>
+                    <span class="hidden">Cart</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <a pripple="" pStyleClass="@next" appendTo="body" enterClass="hidden" enterActiveClass="scalein"
+        leaveToClass="hidden" leaveActiveClass="fadeout" [hideOnOutsideClick]="true"
+        class=" cursor-pointer block lg:hidden text-700 ml-3"><i class="pi pi-bars text-2xl"></i>
+
+    </a>
+    <div
+        class="absolute hidden align-items-center flex-grow-1 justify-content-between lg:flex  lg:static w-full surface-overlay left-0 top-100 px-6 lg:px-0 z-5 shadow-2 lg:shadow-none ">
+        <section></section>
+        <ul
+            class="list-none p-0 m-0 flex lg:align-items-center text-900 select-none flex-column lg:flex-row cursor-pointer">
+
+            <li><a pripple="" routerLinkActive="routeactive"
+                [routerLinkActiveOptions]="{exact:true}" routerLink="/"
+                    class=" flex px-0 lg:px-4 py-2 text-gray-800 hover:text-blue-600 font-medium   no-underline"><span>{{'login.Home'|translate}}</span></a></li>
+            <li class="relative"><a pripple="" pStyleClass="@next" appendTo="body" enterClass="hidden" routerLinkActive="routeactive" 
+                
+                    enterActiveClass="scalein" leaveToClass="hidden" leaveActiveClass="fadeout"
+                    [hideOnOutsideClick]="true" routerLinkActive="routeactive"
+                    routerLinkActive="routeactive"
+                    routerLink="**"
+                    class="mainheadingtextclass lg:px-4 hover:text-blue-600"><span>{{'login.Products'|translate}}</span><i
+                        class="pi pi-chevron-down ml-auto lg:ml-3"></i></a>
+                <ul
+                    class="ulclass shadow-0 lg:shadow-2 lg:absolute surface-overlay origin-top w-full lg:w-15rem hidden">
+                    <li><a pripple=""
+                            class=" anchor hover:surface-50  "><i
+                                class="pi pi-list text-2xl mr-2 text-blue-600"></i><span>Features</span></a></li>
+                    <li><a pripple=""
+                            class=" anchor hover:surface-50  "><i
+                                class="pi pi-shield text-2xl mr-2 text-blue-600"></i><span>Solutions</span></a></li>
+                    <li><a pripple=""
+                            class=" anchor hover:surface-50  "><i
+                                class="pi pi-users text-2xl mr-2 text-blue-600"></i><span>Customers</span></a></li>
+
+                </ul>
+            </li>
+
+            <li><a pripple="" routerLinkActive="routeactive"
+                routerLink="/Aboutus"
+                    class="mainheadingtextclass lg:px-4 hover:text-blue-600"><span>{{'login.About-Us'|translate}}</span>
+                    </a></li>
+        </ul>
+        <div
+            class="menu">
+            <ul class="list-none p-0 m-0 flex w-full" style="min-height: 46px;">
+                <li class="flex2 lg:flex-initial"><a pripple=""
+                        class="textclass lg:px-3 "><img
+                            src="assets/image/england.png" alt="england flag" [class.active]="switchlang=='products'"
+                            class="cursor-pointer" (click)="useLanguage('products')"></a></li>
+                <li class="flex2 lg:flex-initial"><a href=""
+                        class="textclass lg:px-3 ">|</a>
+                </li>
+                <li class="flex2 lg:flex-initial"><a pripple=""
+                        class=" textclass lg:px-3 "><img
+                            src="assets/image/vietnam.png" alt="england flag" [class.active]="switchlang=='tamil'"
+                            class="cursor-pointer" (click)="useLanguage('tamil')"></a></li>
+                <li class="flex2 lg:flex-initial"><a href=""
+                        class="textclass lg:px-3 ">|</a>
+                </li>
+                <li class="flex2 lg:flex-initial"><a pripple="" routerLink="/cart"
+                        class="textclass lg:px-3">
+                        <i pBadge class="pi pi-shopping-cart ng-cart text-xl p-overlay-badge" severity="success"
+                            value={{cartCount}}>
+                        </i>
+                        <span class="hidden">Cart</span></a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>

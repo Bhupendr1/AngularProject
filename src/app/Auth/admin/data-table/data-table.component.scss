@@ -1,0 +1,18 @@
+.product-badge.status-In-Stock {
+    padding: .5rem;
+    border-radius: 4px;
+    background: #C8E6C9;
+    color: #256029;
+}
+.product-badge.status-Less-Stock {
+    padding: .5rem;
+    border-radius: 4px;
+    background: #FEEDAF;
+    color: #8a5340;
+}
+.product-badge.status-Out-Of-Stock{
+    padding: .5rem;
+    border-radius: 4px;
+    background: #FFCDD2;
+    color: #c63737;
+}

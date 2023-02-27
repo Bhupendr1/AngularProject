@@ -1,0 +1,225 @@
+<form [formGroup]="checkoutform">
+    <div _ngcontent-hep-c27="" class="layout-content">
+        <p-toast position="bottom-center" key="bc" [showTransitionOptions]="'0ms'"
+            [hideTransitionOptions]="'0ms'"></p-toast>
+        <div class="block-section">
+            <div class="block-content">
+                <div class="ng-star-inserted">
+                    <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+
+                        <div class="grid -mr-3 -ml-3 ng-tns-c48-2">
+                            <div class="col-12 lg:col-8 p-4 ng-tns-c48-2">
+                                <div class="surface-card grid formgrid p-fluid border-round shadow-2 p-4 ng-tns-c48-2">
+                                    <div class="col-12 mt-4 lg:mt-0 mb-4 ng-tns-c48-2">
+                                        <div class="text-900 font-medium text-xl ng-tns-c48-2">Shipping</div>
+                                    </div>
+                                    <div class="col-12 field ng-tns-c48-2">
+
+                                        <label for="email2" class="text-900 font-medium mb-3 ng-tns-c48-2">Email</label>
+                                        <input id="email2" type="text" class="p-inputtext w-full mb-3 ng-tns-c48-2"
+                                            formControlName="email">
+                                    </div>
+                                    <div class="col-12 lg:col-6 field mb-0 ng-tns-c48-2"><label for="name2"
+                                            class="text-900 font-medium mb-3 ng-tns-c48-2">First Name</label><input
+                                            formControlName="Firstname" id="name2" type="text"
+                                            class="p-inputtext w-full mb-3 ng-tns-c48-2">
+                                    </div>
+                                    <div class="col-12 lg:col-6 field mb-0 ng-tns-c48-2"><label for="name3"
+                                            class="text-900 font-medium mb-3 ng-tns-c48-2">last Name</label><input
+                                            formControlName="lastname" id="name3" type="text"
+                                            class="p-inputtext w-full mb-3 ng-tns-c48-2">
+                                    </div>
+                                    <div class="col-12 lg:col-6 field mb-0 ng-tns-c48-2"><label for="address3"
+                                            class="text-900 font-medium mb-3 ng-tns-c48-2">Apartment
+                                            etc.</label><input id="address3" type="text" formControlName="address"
+                                            class="p-inputtext w-full mb-3 ng-tns-c48-2"></div>
+                                    <div class="col-12 lg:col-6 field mb-0 ng-tns-c48-2"><label for="pc2"
+                                            class="text-900 font-medium mb-3 ng-tns-c48-2">District</label><input
+                                            formControlName="PostalCode" id="pc2" type="text"
+                                            class="p-inputtext w-full mb-3 ng-tns-c48-2"></div>
+                                    <div class="col-12 lg:col-6 field mb-0 ng-tns-c48-2"><label for="city2"
+                                            class="text-900 font-medium mb-3 ng-tns-c48-2">City</label><input
+                                            formControlName="City" id="city2" type="text"
+                                            class="p-inputtext w-full mb-3 ng-tns-c48-2">
+                                    </div>
+                                    <div class="col-12 lg:col-6 field mb-0 ng-tns-c48-2"><label for="phone"
+                                            class="text-900 font-medium mb-3 ng-tns-c48-2">Phone</label><input
+                                            formControlName="Phone" id="phone" type="text"
+                                            class="p-inputtext w-full mb-3 ng-tns-c48-2">
+                                    </div>
+                                    <div class="col-12 field mb-0 ng-tns-c48-2"><label for="Remark"
+                                            class="text-900 font-medium mb-3 ng-tns-c48-2">Remark</label>
+                                        <textarea [rows]="5" [cols]="30" pInputTextarea [autoResize]="true"
+                                            formControlName="textarea"></textarea>
+
+                                    </div>
+                                    <p-divider class="p-element w-full px-2 mb-3 ng-tns-c48-2">
+                                        <div role="separator"
+                                            class="p-divider p-component p-divider-horizontal p-divider-solid p-divider-left">
+                                            <div class="p-divider-content"></div>
+                                        </div>
+                                    </p-divider>
+                                    <div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+                                        <div class="text-900 text-xl font-medium mb-3 text-center">Payment Methods</div>
+                                        <div class="grid">
+                                            <!-- ng-class="{checked: radioBtn == 2 ? 'border-blue-500' : 'border-transparent'}"  -->
+                                            <!-- ng-class="isActive ? 'border-blue-500' : 'border-transparent'"  -->
+                                            <div class="col-12 lg:col-6 p-3">
+                                                <div class="shadow-2 surface-card p-4 border-2 cursor-pointer "
+                                                    [ngClass]="[ checkoutform.value.radioBtn=='Cash-On-Delivery' ? 'border-blue-500' : 'border-transparent']"
+                                                    style="border-radius: 10px;">
+                                                    <div class="flex align-items-center mb-4">
+                                                        <div class="mr-3"><span
+                                                                class="inline-flex justify-content-center align-items-center bg-indigo-100"
+                                                                style="border-radius: 4px; width: 45px; height: 45px;"><i
+                                                                    class="pi pi-credit-card text-2xl text-indigo-600"></i></span>
+                                                        </div>
+                                                        <div><span class="text-900 text-xl mb-2 font-medium">Cash On
+                                                                Delivary</span>
+
+                                                        </div>
+                                                        <p-radioButton name="radioBtn" formControlName="radioBtn"
+                                                            value="Cash-On-Delivery"
+                                                            class="ml-auto ng-valid ng-dirty ng-touched">
+                                                        </p-radioButton>
+                                                    </div>
+                                                    <p class="text-600 m-0 line-height-3"> If you intend to leave the
+                                                        address you provided, kindly endorse your payment to another
+                                                        party to ensure your order is delivered successfully.timeframe
+                                                        for shipping is between 2 and 7 days.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 lg:col-6 p-3">
+                                                <div class="shadow-2 surface-card p-4 border-2 border-transparent cursor-pointer"
+                                                    [ngClass]="[ checkoutform.value.radioBtn=='Credit-Card' ? 'border-blue-500' : 'btn-danger']"
+                                                    style="border-radius: 10px;">
+                                                    <div class="flex align-items-center mb-4">
+                                                        <div class="mr-3"><span
+                                                                class="inline-flex justify-content-center align-items-center bg-indigo-100"
+                                                                style="border-radius: 4px; width: 45px; height: 45px;"><i
+                                                                    class="pi pi-credit-card text-2xl text-indigo-600"></i></span>
+                                                        </div>
+                                                        <div><span class="text-900 text-xl mb-2 font-medium">ZaloPay
+                                                                E-Wallet</span>
+
+                                                        </div>
+                                                        <p-radioButton name="radioBtn" formControlName="radioBtn"
+                                                            value="Credit-Card"
+                                                            class="ml-auto ng-valid ng-dirty ng-touched">
+                                                        </p-radioButton>
+                                                    </div>
+                                                    <p class="text-600 m-0 line-height-3">Please prepare the exact
+                                                        amount reflected on your invoice upon delivery.To avoid delays
+                                                        or delivery failure, please ensure you provided (Name, Shipping
+                                                        address,Contact number)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-container *ngIf="checkoutform.value.radioBtn=== '1'">
+                                        <div class="col-12 field mb-4">
+                                            <label for="cc" class="text-900 font-medium mb-3 block ng-tns-c48-2">Card
+                                                Number</label>
+                                            <input pInputText id="cc" type="text" name="cc" formControlName="CardNumber"
+                                                placeholder="1234-1234-1234-1234" style="margin-right: .5em;">
+                                        </div>
+                                        <div class="col-12 lg:col-6 field mb-4 ng-tns-c48-2">
+                                            <label for="exp" class="text-900 font-medium mb-3 block">Expiry
+                                                Date</label><input id="exp" type="text" name="exp" pInputText
+                                                formControlName="Expiry" placeholder="MM/YY"
+                                                style="margin-right: .5em;">
+
+                                        </div>
+                                        <div class="col-12 lg:col-6 field mb-4 ng-tns-c48-2">
+                                            <label for="cvv"
+                                                class="text-900 font-medium mb-3 block ng-tns-c48-2">CVC</label><input
+                                                formControlName="CVC" type="text" pInputText placeholder="123"
+                                                style="margin-right: .5em;">
+
+                                        </div>
+                                        <div class="col-12 field mb-0 ng-tns-c48-2"><label for="holderName"
+                                                class="text-900 font-medium mb-3 ng-tns-c48-2">Cardholder
+                                                Name</label><input id="holderName" type="text"
+                                                formControlName="CardholderName" pInputText>
+                                        </div>
+                                    </ng-container>
+
+                                </div>
+                            </div>
+                            <div class="col-12 lg:col-4 p-4 ">
+                                <div class="surface-card p-4 border-round shadow-2 ng-tns-c48-2">
+                                    <div class="border-bottom-1 surface-border pb-4 ng-tns-c48-2"><span
+                                            class="text-900 text-xl block ng-tns-c48-2">Order Summary</span></div>
+                                    <div class="border-bottom-1 surface-border my-3 py-2 ng-tns-c48-2">
+                                        <div class="flex justify-content-between mb-3 ng-tns-c48-2"><span
+                                                class="text-900 ng-tns-c48-2">Price</span><span
+                                                class="text-900 ng-tns-c48-2">{{price | currency:'INR'}}</span></div>
+                                        <div class="flex justify-content-between mb-3 ng-tns-c48-2"><span
+                                                class="text-900 ng-tns-c48-2">Delivery</span><span
+                                                class="text-green-500 ng-tns-c48-2">Free</span></div>
+                                        <div class="flex justify-content-between mb-3 ng-tns-c48-2"><span
+                                                class="text-900 ng-tns-c48-2">Discount</span><span
+                                                class="text-900 ng-tns-c48-2">{{discount | currency:'INR'}}%</span>
+                                        </div>
+                                    </div>
+                                    <div class="py-2 mt-3 border-bottom-1 surface-border ng-tns-c46-2">
+                                        <div class="p-inputgroup mb-3 ng-tns-c46-2"><input type="text" pinputtext=""
+                                                formControlName="Promocode" placeholder="Promo code"
+                                                class="p-inputtext p-component p-element w-full ng-tns-c46-2 ng-pristine ng-valid ng-touched"><button
+                                                type="button" pbutton="" pripple="" label="Apply"
+                                                class="p-element p-ripple ng-tns-c46-2 p-button p-button-success p-component"
+                                              ><span class="p-button-label ">Apply</span><span
+                                                    class="p-ink"></span></button></div>
+                                    </div>
+                                    <div class="border-bottom-1 surface-border my-3 py-2 ng-tns-c48-2">
+                                        <div class="flex justify-content-between mb-3 ng-tns-c48-2"><span
+                                                class="text-900 font-medium ng-tns-c48-2">Total</span><span
+                                                class="text-900 font-bold ng-tns-c48-2">{{totalprice |
+                                                currency:'INR'}}</span></div>
+                                    </div>
+                                    <button type="button" pTooltip="Enter your username" tooltipPosition="top"
+                                        tooltipEvent="focus" pbutton="" pripple="" label="Place Order"
+                                        (click)="confirm($event)"
+                                        class="p-element p-ripple  border-none hover:bg-primary w-full mt-3 ng-tns-c48-2 p-button p-component"><span
+                                            class="p-button-label">Place Order</span><span
+                                            class="p-ink"></span></button>
+
+                                    <button type="button" pbutton="" pripple="" label="Place Order" routerLink="Web/cart"
+                                        class="p-element p-ripple  border-none hover:bg-primary w-full mt-3 ng-tns-c48-2 p-button p-component"><span
+                                            class="p-button-label">Return To Cart</span><span
+                                            class="p-ink"></span></button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div><!----><!---->
+            </div>
+        </div>
+    </div>
+
+    <!-- <button (click)="confirm($event)" pButton icon="pi pi-check" label="Confirm"></button> -->
+    <!-- <p-toast position="bottom-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="grid p-fluid">
+                <div class="col-6">
+                    <button type="submit" pButton label="Yes" class="p-button-success"></button>
+                </div>
+                <div class="col-6">
+                    <button type="button" pButton (click)="onReject()" label="No" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast> -->
+    <p-toast></p-toast>
+
+    <p-confirmPopup></p-confirmPopup>
+</form>

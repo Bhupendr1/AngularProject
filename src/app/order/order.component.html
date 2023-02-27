@@ -1,0 +1,42 @@
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8" ><span class="text-700 text-xl">Thanks!</span>
+    <div class="text-900 font-bold text-4xl my-2">Order has been Placed🚀</div>
+    <p class="text-700 text-xl mt-0 mb-4 p-0">Your order has been processed. It'll be shipped by today.</p>
+    <div style="height: 3px; background: linear-gradient(90deg, #2196F3 0%, rgba(33, 150, 243, 0) 50%);"></div>
+    <div class="flex flex-column sm:flex-row sm:align-items-center sm:justify-content-between py-5">
+        <div class="mb-3 sm:mb-0"><span class="font-medium text-xl text-900 mr-2">Order ID:{{rndInt}}</span><span
+                class="font-medium text-xl text-blue-500"></span></div>
+        <div><button pbutton="" routerLink="/"
+                pripple="" label="Print" icon="pi pi-print"
+                class="p-element p-ripple p-button-outlined p-button-secondary p-button p-component"><span
+                    class="p-button-icon p-button-icon-left " aria-hidden="true"></span><span
+                    class="p-button-label">continue shopping</span><span class="p-ink"></span></button></div>
+    </div>
+    <div class="border-round surface-border border-1">
+        <ul class="list-none p-0 m-0" *ngFor="let i of orderHistory.cart">
+            <li class="p-3 border-bottom-1 surface-border flex align-items-start sm:align-items-center"><img [src]="i.image"
+                    class="w-3rem sm:w-8rem flex-shrink-0 mr-3 shadow-2">
+                <div class="flex flex-column"><span class="text-900 font-medium text-xl mb-2">{{i.name}}</span><span
+                        class="text-600 mb-3">Blue | Medium</span><span class="text-900 font-medium">Quantity:{{i.qty}}</span>
+                </div><span class="text-900 font-medium text-lg ml-auto">Price:₹{{i.price}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="flex flex-wrap mt-5 pb-3">
+        <div class="w-full lg:w-6 pl-3"><span class="font-medium text-900">Shipping Address</span>
+            <div class="flex flex-column text-900 mt-3 mb-5"><span class="mb-1">Postal code:{{orderHistory.PostalCode}}</span><span
+                    class="mb-1">Address:{{orderHistory.address}}</span><span>Contact Number:{{orderHistory.Phone}}</span></div><span
+                class="font-medium text-900">Payment Type</span>
+            <div class="flex align-items-center mt-3">
+                <div class="flex flex-column"><span class="text-900 mb-1">Order Type:<b> &nbsp;{{orderHistory.radioBtn}}</b></span></div>
+            </div>
+        </div>
+        <div class="w-full lg:w-6 pl-3 lg:pl-0 lg:pr-3 flex align-items-end mt-5 lg:mt-0">
+            <ul class="list-none p-0 m-0 w-full">
+                <li class="mb-3"><span class="font-medium text-900">Order Summary</span></li>
+                <li class="flex justify-content-between mb-3"><span class="text-900">Total:</span><span
+                        class="text-900 font-medium text-lg">₹{{orderHistory.totalprice}}</span></li>
+
+            </ul>
+        </div>
+    </div>
+</div>

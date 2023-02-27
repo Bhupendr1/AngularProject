@@ -1,0 +1,105 @@
+.product-badge.status-Less-Stock{
+    background: #FEEDAF;
+    color: #8a5340;
+    padding: .5rem;
+    border-radius: 4px;
+}
+.product-badge.status-In-Stock {
+    background: #C8E6C9;
+    color: #256029;
+    padding: .5rem;
+    border-radius: 4px;
+}
+.product-badge.status-Out-Of-Stock{
+    background: #FFCDD2;
+    color: #c63737;
+    padding: .5rem;
+    border-radius: 4px;
+}
+.product-badge.status-குறைந்த-பங்கு{
+    background: #FEEDAF;
+    color: #8a5340;
+    padding: .5rem;
+    border-radius: 4px;
+}
+.product-badge.status-இன்ஸ்டாக் {
+    background: #C8E6C9;
+    color: #256029;
+    padding: .5rem;
+    border-radius: 4px;
+}
+.product-badge.status-பங்கு-இல்லை{
+    background: #FFCDD2;
+    color: #c63737;
+    padding: .5rem;
+    border-radius: 4px;
+}
+.product-grid-item {
+	margin: 0.5em;
+	border: 1px solid #dee2e6;
+	padding: .5rem;
+}
+.product-name {
+	font-size: 1rem;
+}
+.product-list-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+
+}   
+.product-list-item img {
+    width: 150px;
+    box-shadow: 0 3px 6px #00000029, 0 3px 6px #0000003b;
+    margin-right: 2rem;
+}
+.product-list-item .product-list-detail {
+    flex: 1 1 0;
+}
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.product-description {
+    margin: 0 0 1rem;
+}
+.product-category-icon {
+    vertical-align: middle;
+    margin-right: .5rem;
+}
+.product-category {
+    font-weight: 600;
+    vertical-align: middle;
+}
+.product-list-item .product-list-action {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.product-list-item .product-price {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+    align-self: flex-end;
+}
+img {
+    width: 15%;
+    margin: 2rem 0;
+}
+
+.product-price {
+    align-self: center;
+}
+.product-item {
+    .product-item-content {
+        border-radius: 3px;
+        margin: .3rem;
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    .product-image {
+        width: 40%;
+    }
+}
