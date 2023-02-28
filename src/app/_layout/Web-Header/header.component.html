@@ -37,15 +37,15 @@
         </div>
         <div class="lg:flex w-full lg:w-auto py-3 lg:py-0">
             <ul class="list-none p-0 m-0 flex w-full" style="min-height: 46px;">
-                <li class="flex2 lg:flex-initial"><a pripple=""
+                <li class="flex2 lg:flex-initial"><a 
                         class=" lg:px-3 "><img src="assets/image/england.png" alt="england flag"
                         [class.active]="switchlang=='products'" class="cursor-pointer"
                         (click)="useLanguage('products')"></a></li>
                        <li class="flex2 lg:flex-initial"><a href="" class=" lg:px-1 ">|</a></li>
-                <li class="flex2 lg:flex-initial"><a pripple=""
+                <li class="flex2 lg:flex-initial"><a 
                         class=" lg:px-3 "><img src="assets/image/vietnam.png" alt="england flag" [class.active]="switchlang=='tamil'" class="cursor-pointer" (click)="useLanguage('tamil')"></a></li>
                         <li class="flex2 lg:flex-initial"><a href="" class=" lg:px-1 ">|</a></li>
-                        <li class="flex2 lg:flex-initial"><a pripple="" [routerLink]="['/cart']"
+                        <li class="flex2 lg:flex-initial"><a  [routerLink]="['/cart']"
                         class=" no-underline lg:pl-3 pr-3 ">
                         <i pBadge class="pi pi-shopping-cart ng-cart text-xl p-overlay-badge" severity="success"
                         value={{cartCount}}>
@@ -67,29 +67,29 @@
     <div class="flex flex-grow-1 justify-content-end gap-3 align-items-center">
         <ul class="list-none flex1 gap-2 lg:hidden">
             <li>
-                <a pripple="">
+                <a >
                     <img src="assets/image/england.png" alt="england flag" [class.active]="switchlang=='products'"
                         class="cursor-pointer" (click)="useLanguage('products')">
                 </a>
             </li>
             <li>
-                <a pripple=""> 
+                <a > 
                     <i class="pi pi-minus rotate-90"></i>
                 </a>
             </li>
             <li class="">
-                <a pripple="">
+                <a >
                     <img src="assets/image/vietnam.png" alt="england flag" [class.active]="switchlang=='tamil'"
                         class="cursor-pointer" (click)="useLanguage('tamil')">
                 </a>
             </li>
             <li>
-                <a pripple="">
+                <a >
                     <i class="pi pi-minus rotate-90"></i>
                 </a>
             </li>
             <li>
-                <a pripple=""  routerLink="/cart">
+                <a   routerLink="/cart">
                     <i pBadge class="pi pi-shopping-cart ng-cart text-xl p-overlay-badge" severity="success"
                         value={{cartCount}}></i>
                     <span class="hidden">Cart</span>
@@ -98,7 +98,7 @@
 
         </ul>
     </div>
-    <a pripple="" pStyleClass="@next" appendTo="body" enterClass="hidden" enterActiveClass="scalein"
+    <a  pStyleClass="@next" appendTo="body" enterClass="hidden" enterActiveClass="scalein"
         leaveToClass="hidden" leaveActiveClass="fadeout" [hideOnOutsideClick]="true"
         class=" cursor-pointer block lg:hidden text-700 ml-3"><i class="pi pi-bars text-2xl"></i>
 
@@ -109,33 +109,11 @@
         <ul
             class="list-none p-0 m-0 flex lg:align-items-center text-900 select-none flex-column lg:flex-row cursor-pointer">
 
-            <li><a pripple="" routerLinkActive="routeactive"
+            <li><a  routerLinkActive="routeactive"
                 [routerLinkActiveOptions]="{exact:true}" routerLink="/"
                     class=" flex px-0 lg:px-4 py-2 text-gray-800 hover:text-blue-600 font-medium   no-underline"><span>{{'login.Home'|translate}}</span></a></li>
-            <li class="relative"><a pripple="" pStyleClass="@next" appendTo="body" enterClass="hidden" routerLinkActive="routeactive" 
-                
-                    enterActiveClass="scalein" leaveToClass="hidden" leaveActiveClass="fadeout"
-                    [hideOnOutsideClick]="true" routerLinkActive="routeactive"
-                    routerLinkActive="routeactive"
-                    routerLink="**"
-                    class="mainheadingtextclass lg:px-4 hover:text-blue-600"><span>{{'login.Products'|translate}}</span><i
-                        class="pi pi-chevron-down ml-auto lg:ml-3"></i></a>
-                <ul
-                    class="ulclass shadow-0 lg:shadow-2 lg:absolute surface-overlay origin-top w-full lg:w-15rem hidden">
-                    <li><a pripple=""
-                            class=" anchor hover:surface-50  "><i
-                                class="pi pi-list text-2xl mr-2 text-blue-600"></i><span>Features</span></a></li>
-                    <li><a pripple=""
-                            class=" anchor hover:surface-50  "><i
-                                class="pi pi-shield text-2xl mr-2 text-blue-600"></i><span>Solutions</span></a></li>
-                    <li><a pripple=""
-                            class=" anchor hover:surface-50  "><i
-                                class="pi pi-users text-2xl mr-2 text-blue-600"></i><span>Customers</span></a></li>
 
-                </ul>
-            </li>
-
-            <li><a pripple="" routerLinkActive="routeactive"
+            <li><a  routerLinkActive="routeactive"
                 routerLink="/Aboutus"
                     class="mainheadingtextclass lg:px-4 hover:text-blue-600"><span>{{'login.About-Us'|translate}}</span>
                     </a></li>
@@ -143,21 +121,21 @@
         <div
             class="menu">
             <ul class="list-none p-0 m-0 flex w-full" style="min-height: 46px;">
-                <li class="flex2 lg:flex-initial"><a pripple=""
+                <li class="flex2 lg:flex-initial"><a 
                         class="textclass lg:px-3 "><img
                             src="assets/image/england.png" alt="england flag" [class.active]="switchlang=='products'"
                             class="cursor-pointer" (click)="useLanguage('products')"></a></li>
                 <li class="flex2 lg:flex-initial"><a href=""
                         class="textclass lg:px-3 ">|</a>
                 </li>
-                <li class="flex2 lg:flex-initial"><a pripple=""
-                        class=" textclass lg:px-3 "><img
+                <li class="flex2 lg:flex-initial">
+                    <a class=" textclass lg:px-3 "><img
                             src="assets/image/vietnam.png" alt="england flag" [class.active]="switchlang=='tamil'"
                             class="cursor-pointer" (click)="useLanguage('tamil')"></a></li>
                 <li class="flex2 lg:flex-initial"><a href=""
                         class="textclass lg:px-3 ">|</a>
                 </li>
-                <li class="flex2 lg:flex-initial"><a pripple="" routerLink="/cart"
+                <li class="flex2 lg:flex-initial"><a  routerLink="/cart"
                         class="textclass lg:px-3">
                         <i pBadge class="pi pi-shopping-cart ng-cart text-xl p-overlay-badge" severity="success"
                             value={{cartCount}}>

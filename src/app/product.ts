@@ -15,3 +15,4 @@ export interface Product {
     favouriteTotal: number; 
     Discount?: number; 
 }
+

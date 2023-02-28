@@ -20,7 +20,6 @@ export class AppComponent {
     translate: TranslateService,
     private primengConfig: PrimeNGConfig,
     ) {
-      console.log(environment.production); // Logs false for development environment
     translate.addLangs(['products', 'tamil']);
     translate.setDefaultLang('products');
     translate.use('products');

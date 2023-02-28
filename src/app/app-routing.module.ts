@@ -50,11 +50,11 @@ const routes: Routes = [
 },
 { path: 'AdminLogin', component: AdminComponent },
 
-{
-  path: '',
-  redirectTo: 'Home',
-  pathMatch: 'full'
-},
+// {
+//   path: '',
+//   redirectTo: '/',
+//   pathMatch: 'full'
+// },
 
 // {
 //   path: '',

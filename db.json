@@ -1,5 +1,21 @@
 {
-  "Cart": [],
+  "Cart": [
+    {
+      "id": "1001",
+      "code": "nvklal433",
+      "name": "Queen guava ",
+      "description": "Category Description",
+      "image": "assets/product/amrud.jpg",
+      "price": 72,
+      "category": "Fruits",
+      "quantity": 8,
+      "inventoryStatus": "In-Stock",
+      "rating": 4,
+      "button.en": "English",
+      "button.ta": "Tamil",
+      "qty": 1
+    }
+  ],
   "orderHistory": [
     {
       "Firstname": "",

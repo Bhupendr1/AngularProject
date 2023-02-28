@@ -156,5 +156,8 @@ clear() {
     this.Productservice.ProductCount.next(d.length)
     })
     }
+    radioclick(E:any){
+      console.log(E)
+    }
 }
 

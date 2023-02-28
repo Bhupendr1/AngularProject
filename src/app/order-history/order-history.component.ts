@@ -17,23 +17,23 @@ export class OrderHistoryComponent {
 
   constructor(private Productservice: ProductserviceService,private route:Router) { }
   ngOnInit():void{
-    this.loadHistory();
+    // this.loadHistory();
     this.totalprice=this.price-(this.price*this.discount)/100;
   }
-  loadHistory(){
-    this.Productservice.gethistoryList().subscribe(res=>{
-      this.orderHistory=res;
-      // res.forEach( (value:any) => {
-      //   this.orderHistory=value;
-      //   value.cart.forEach((data:any) =>{
-      //     this.product=data;
-      //   });
+  // loadHistory(){
+  //   this.Productservice.gethistoryList().subscribe(res=>{
+  //     this.orderHistory=res;
+  //     // res.forEach( (value:any) => {
+  //     //   this.orderHistory=value;
+  //     //   value.cart.forEach((data:any) =>{
+  //     //     this.product=data;
+  //     //   });
         
-      // });
-      console.table(this.products);
+  //     // });
+  //     console.table(this.products);
       
-       console.table(this.orderHistory);
-    })
-    // console.table(this.orderHistory);
-  }  
+  //      console.table(this.orderHistory);
+  //   })
+  //   // console.table(this.orderHistory);
+  // }  
 }

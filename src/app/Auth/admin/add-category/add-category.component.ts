@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Product } from 'src/app/product';
+import { CategoryList } from 'src/app/Category';
 import { ProductserviceService } from 'src/app/service/productservice.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-interface Invenstatus {
-  name: string,
-  code: string
-}
+import { FormGroup,FormBuilder, Validators } from '@angular/forms';
+import { RowGroupHeader } from 'primeng/table';
+
+
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
@@ -25,26 +25,33 @@ export class AddCategoryComponent {
   
   productDialog: boolean=false;
 
-  products!:Product[];
+  products!:CategoryList[];
 
-  status: Product[]=[];
+  status: CategoryList[]=[];
 
-  product!: Product;
+  product!: CategoryList;
 
-  selectedProducts!: Product[];
+  selectedProducts!: CategoryList[];
 
   submitted: boolean=false;
   statuses!: any[];
+  Categoryform!:FormGroup;
 
-  constructor(private productService: ProductserviceService, private messageService: MessageService, private confirmationService: ConfirmationService) {
-
+  constructor(private _Api: ProductserviceService,
+     private messageService: MessageService,
+      private confirmationService: ConfirmationService,
+      private fb:FormBuilder
+      ) {
    }
 
    ngOnInit() {
-    this.productService.getProducts().then(data => {
-      this.products = data
-    });
-    
+    this.Categoryform=this.fb.group({
+      CategoryName: [''],
+      Categorydescription: [''],
+      CategoryId: ['0']
+
+    })
+    this.loadDataCategory();
      this.statuses = [
           {
             label: 'INSTOCK',
@@ -54,39 +61,51 @@ export class AddCategoryComponent {
           {label: 'OUTOFSTOCK', value: 'outofstock'}
       ];
 }
-openNew() {
-  this.product = {...this.product};
-  this.submitted = false;
-  this.productDialog = true;
-}
 
-deleteSelectedProducts() {
-  this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-          this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-          this.selectedProducts = null as any;
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
-      }
+loadDataCategory(){
+  this._Api.postRequestUrl01('','EcartCategory/GetAllCategory').subscribe(data => {
+    this.products = data
   });
 }
 
-editProduct(product: Product) {
-  this.product = {...product};
+openNewAdd() {
+  // this.product = {...this.product};
+  this.Categoryform.controls['CategoryId'].setValue(""),
+  this.Categoryform.controls['CategoryName'].setValue(""),
+  this.Categoryform.controls['Categorydescription'].setValue("")
+   this.submitted = false;
+   this.productDialog = true;
+ }
+
+editProduct(product: CategoryList) {
+  this.Categoryform.controls['CategoryId'].setValue(product.CategoryID),
   this.productDialog = true;
+  this.Categoryform.controls['CategoryName'].setValue(product.CategoryName),
+  this.Categoryform.controls['Categorydescription'].setValue(product.Description)
 }
 
-deleteProduct(product: Product) {
+deleteProduct(product: CategoryList) {
   this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
+      message: 'Are you sure you want to delete ' + product.CategoryName + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-          this.products = this.products.filter(val => val.id !== product.id);
-          this.product = {...product};
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+          let deletData={
+            "CategoryID":product.CategoryID
+          }
+          this._Api.postRequestUrl01(deletData,'EcartCategory/DeleteCategory').subscribe({
+                next: (res) => {
+            this.loadDataCategory();
+                  this.messageService.add({severity:'success', summary: 'Successful', detail:  res.Message, life: 3000});
+
+              },error: (err) => {
+                let errorObj = {
+                  message: err.message,
+                  err: err,
+                  response: err
+                }
+              }
+          })
       }
   });
 }
@@ -95,46 +114,69 @@ hideDialog() {
   this.productDialog = false;
   this.submitted = false;
 }
+get f() {
+  return this.Categoryform.controls;
+}
 
-saveProduct() {
-  this.submitted = true;
-
-  if (this.product.name?.trim()) {
-      if (this.product.id) {
-          this.products[this.findIndexById(this.product.id)] = this.product;                
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+saveProduct(){
+this.submitted = true;
+if (this.Categoryform.invalid) {
+    return;
+}
+else{
+  if (this.Categoryform.controls['CategoryId'].value!=0) {
+    let Udata={        
+      "CategoryName": this.Categoryform.controls["CategoryName"].value,
+      "Description": this.Categoryform.controls["Categorydescription"].value,
+      "CategoryID":this.Categoryform.controls['CategoryId'].value
+    }
+    this._Api.postRequestUrl01(Udata,'EcartCategory/UpdateCategory').subscribe({
+      next: (res) => {
+        console.log(res)
+      if (res.status = 200) {  
+        this.loadDataCategory();
+        this.messageService.add({severity:'success', summary: 'Successful', detail: res.Message, life: 3000});      
       }
-      else {
-          this.product.id = this.createId();
-          this.product.image = 'product-placeholder.svg';
-          this.products.push(this.product);
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
-      }
-
       this.products = [...this.products];
       this.productDialog = false;
       this.product = {...this.product};
+  },
+  error: (err) => {
+    let errorObj = {
+      message: err.message,
+      err: err,
+      response: err
+    }
   }
+  })
 }
-findIndexById(id: string): number {
-  let index = -1;
-  for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
-          index = i;
-          break;
+  else{
+    let rdata={        
+      "CategoryName": this.Categoryform.controls["CategoryName"].value,
+      "Description": this.Categoryform.controls["Categorydescription"].value,
+    }
+    this._Api.postRequestUrl01(rdata,'EcartCategory/AddCategory').subscribe({
+          next: (res) => {
+            console.log(res)
+          if (res.status = 200) { 
+            this.loadDataCategory();   
+            this.messageService.add({severity:'success', summary: 'Successful', detail: res.Message, life: 3000});   
+          }
+          this.products = [...this.products];
+          this.productDialog = false;
+          this.product = {...this.product};
+      },
+      error: (err) => {
+        let errorObj = {
+          message: err.message,
+          err: err,
+          response: err
+        }
       }
+      })
   }
-
-  return index;
-}
-
-createId(): string {
-  let id = '';
-  var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  for ( var i = 0; i < 5; i++ ) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
+  
   }
-  return id;
 }
 
 GetSearchValue($event:any){
