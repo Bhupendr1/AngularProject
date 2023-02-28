@@ -91,7 +91,10 @@
                                 </ng-template>
                             </p-dropdown>
                         </div>
-                        <div class="field" style="">
+                        <div class="field">
+                            <input type="hidden" pInputText id="name" formControlName="id" />
+                        </div>
+                        <div class="field">
                             <label for="inventoryStatus">Category</label>
                             <p-dropdown formControlName="category" inputId="category" [options]="CategoryList" placeholder="Select">
                                 <ng-template let-option pTemplate="item">
@@ -120,7 +123,8 @@
                         </div>
                         <div class="formgrid grid">
                             <div class="field col">
-                                <p-fileUpload [customUpload]="true" name="file-upload" (uploadHandler)="uploadFile($event)" [multiple]="false" formControlName="myFile"></p-fileUpload>
+                              <p-fileUpload  name="files" (onSelect)=" onUpload($event)"></p-fileUpload>
+                             
                         <!-- <p-fileUpload formControlName="image" chooseLabel="Image Upload"  name="demo[]" [maxFileSize]="300000" (onUpload)="onBasicUpload($event)" [auto]="true">File Uploade</p-fileUpload> -->
                         </div></div>
                     </ng-template>

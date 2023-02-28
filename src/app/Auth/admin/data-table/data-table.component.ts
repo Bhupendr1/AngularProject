@@ -30,6 +30,7 @@ export class DataTableComponent {
   selectedProducts!: Product[];
   submitted: boolean=false;
   statuses!: any[];
+  data:any;
   Productform!:FormGroup;
   constructor(
     private _Api: ProductserviceService,
@@ -50,7 +51,7 @@ export class DataTableComponent {
       Discount: [''],
       myFile:[''],
       quantity: [''],
-      Id: ['0']
+      id: ['0']
     })
     this.loadProduct();
      this.statuses = [
@@ -166,9 +167,9 @@ saveProduct(){
         "CategoryID":this.Productform.controls["id"].value,
         "ProductName": this.Productform.controls["name"].value,
         "Description": this.Productform.controls["description"].value,
-        "ImageParm":this.Productform.controls['myFile'].value,
-        "inventoryStatus": this.Productform.controls["inventoryStatus"].value,
-        "price": this.Productform.controls["price"].value,
+        "ImageParm":this.data,
+       // "inventoryStatus": this.Productform.controls["inventoryStatus"].value,
+        //"price": this.Productform.controls["price"].value,
         "Discount":this.Productform.controls['Discount'].value,
       }
       this._Api.postRequestUrl01(Udata,'EcartProduct/UpdateProduct').subscribe({
@@ -192,15 +193,14 @@ saveProduct(){
     }
     })
   }else{
+    debugger
       let rdata={        
-        "CategoryID":this.Productform.controls['id'].value,
+        "CategoryID":2,
         "ProductName": this.Productform.controls["name"].value,
         "Description": this.Productform.controls["description"].value,
-        "ImageParm":this.Productform.controls['myFile'].value,
-        "inventoryStatus": this.Productform.controls["inventoryStatus"].value,
-        "price": this.Productform.controls["price"].value,
-        "Discount":this.Productform.controls['Discount'].value,
+        "ImageParm":this.data,  
       }
+      console.log(this.data)
       this._Api.postRequestUrl01(rdata,'/EcartProduct/AddProduct').subscribe({     
         
             next: (res) => {
@@ -234,16 +234,34 @@ saveProduct(){
 GetSearchValue($event:any){
 return $event.target.value
 } 
-uploadedImage!:File;
-uploadFile(event:any){
+
+
+onUpload(event:any){
+ 
   let fileReader = new FileReader();
-  fileReader.readAsBinaryString(event.file);
-  console.log(fileReader.result);
+  let byteArray: string | undefined;
+  for (let file of event.files) {
+   // console.log(file.type)
+    fileReader.readAsDataURL(file);
+    fileReader.onload = function () {
+        // Will print the base64 here.
+       console.log(fileReader.result);
+        var ret = fileReader.result?.toString().replace('data:'+file.type+';base64,','');
+        byteArray = ret;
+     // console.log(byteArray); 
+      
+    };
+  }
+ 
+   setTimeout(() => {
+     this.data=byteArray; 
+   }, 1000);
+   //console.log( this.data)
+  
+  
 }
 
-ImageFun(Image:any){
-var base64 = btoa(String.fromCharCode(Image));
-var url = 'data:' + base64;
-return url;
 }
-}
+
+
+
