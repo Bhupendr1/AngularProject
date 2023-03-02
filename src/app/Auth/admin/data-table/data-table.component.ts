@@ -3,12 +3,9 @@ import { Product } from 'src/app/product';
 import { ProductserviceService } from 'src/app/service/productservice.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup,Validator } from '@angular/forms';
+import { FilterService } from "primeng/api";
+import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { CategoryList } from 'src/app/Category';
-interface Invenstatus {
-  name: string,
-  code: string
-}
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
@@ -30,28 +27,30 @@ export class DataTableComponent {
   selectedProducts!: Product[];
   submitted: boolean=false;
   statuses!: any[];
+  imagedata:any;
   data:any;
-  Productform!:FormGroup;
+  cname!:any;
+  Productform:any=FormGroup;
   constructor(
     private _Api: ProductserviceService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private fb:FormBuilder
+    private Formbuilder:FormBuilder,
+    private filterService: FilterService
     ) {}
 
     
 
    ngOnInit() {
-       this.Productform=this.fb.group({
-      name: [''],
-      description: [''],
-      inventoryStatus: [''],
-      category: [''],
-      price: [''],
+    this.Productform = this.Formbuilder.group({
+      ProductId: ['0'],
+      name: ['',[Validators.required,Validators.pattern('^[a-zA-Z \-\']+'),Validators.minLength(5),Validators.maxLength(20)]],
+      description: ['',[Validators.required,Validators.minLength(5),Validators.maxLength(255)]],
+      category: ['',Validators.required],
+      price: ['',Validators.required],
       Discount: [''],
       myFile:[''],
-      quantity: [''],
-      id: ['0']
+      quantity: ['',Validators.required],
     })
     this.loadProduct();
      this.statuses = [
@@ -65,118 +64,87 @@ export class DataTableComponent {
 }
 
 loadProduct(){
-  this._Api.postRequestUrl01('','EcartProduct/GetProduct').subscribe(data => {
+  this._Api.postRequestUrl01('','/EcartAddProduct/GetProduct').subscribe(data => {
     this.products = data
-    console.log(data)
   });
 }
 
 GetCategoryList(){
   this._Api.postRequestUrl01('','/EcartCategory/GetAllCategory').subscribe(data => {
     this.CategoryList = data;
+  //  console.log(data)
   });
 }
 
-
+get f() {
+  return this.Productform.controls;
+}
 
 openNewAdd() {
   // this.product = {...this.product};
   this.GetCategoryList()
   this.loadProduct()
   this.productDialog = true;
-  this.Productform.controls['Id'].setValue(""),
+   this.Productform.controls['ProductId'].setValue(""),
   this.Productform.controls['name'].setValue(""),
   this.Productform.controls['description'].setValue(""),
-  this.Productform.controls['inventoryStatus'].setValue(""),
   this.Productform.controls['price'].setValue(""),
   this.Productform.controls['Discount'].setValue(""),
-  this.Productform.controls['myFile'].setValue("")
    this.submitted = false;
-   this.productDialog = true;
+
  }
 
-editProduct(product: Product) {
+editProduct(product:any) {
+  this.GetCategoryList()
   this.productDialog = true;
-  this.Productform.controls['Id'].setValue(product.id),
-  this.Productform.controls['name'].setValue(product.name),
-  this.Productform.controls['description'].setValue(product.description),
-  this.Productform.controls['inventoryStatus'].setValue(product.inventoryStatus),
-  this.Productform.controls['price'].setValue(product.price),
+  this.Productform.controls['ProductId'].setValue(product.IID),
+  this.Productform.controls['name'].setValue(product.IName),
+  this.Productform.controls['description'].setValue(product.Detail),
+  this.Productform.controls['price'].setValue(product.Price),
+  this.Productform.controls['quantity'].setValue(product.Qnt),
   this.Productform.controls['Discount'].setValue(product.Discount),
-  this.Productform.controls['myFile'].setValue("")
-}
-
-deleteSelectedProducts() {
-  this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-          this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-          this.selectedProducts = null as any;
-          this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
-      }
-  });
-}
-deleteProduct(product: Product) {
-  this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-          // this.products = this.products.filter(val => val.CategoryID !== product.CategoryID);
-          // this.product = {...product};
-          let deletData={
-            "CategoryID":product.id
-          }
-          this._Api.postRequestUrl01(deletData,'EartProduct/DeleteProduct').subscribe({
-                next: (res) => {
-          // alert(res.Message)
-            this.loadProduct();
-                  this.messageService.add({severity:'success', summary: 'Successful', detail:  res.Message, life: 3000});
-                  
-              }, error: (err) => {
-                let errorObj = {
-                  message: err.message,
-                  err: err,
-                  response: err
-                }
-              }
-          
-          })
-      }
-  });
-}
-
+  this.Productform.controls['category'].setValue(product.CName),
+  this.imagedata=product.Image;
+ }
 
 hideDialog() {
   this.productDialog = false;
   this.submitted = false;
 }
 
-saveProduct(){
+onSubmit(){
+  debugger
   this.submitted = true;
-
   if (this.Productform.invalid) {
       return;
   }
   else{
-    if (this.Productform.controls["id"].value!=0) {
+    if (this.Productform.controls["ProductId"].value!=0) {
       debugger
-      let Udata={        
-        "CategoryID":this.Productform.controls["id"].value,
-        "ProductName": this.Productform.controls["name"].value,
-        "Description": this.Productform.controls["description"].value,
-        "ImageParm":this.data,
-       // "inventoryStatus": this.Productform.controls["inventoryStatus"].value,
-        //"price": this.Productform.controls["price"].value,
-        "Discount":this.Productform.controls['Discount'].value,
+      if(this.data==null || this.data==undefined){
+        this.data=this.imagedata;
       }
-      this._Api.postRequestUrl01(Udata,'EcartProduct/UpdateProduct').subscribe({
+      if(this.Productform.controls['category'].value.CategoryName!=undefined || this.Productform.controls['category'].value.CategoryName!=null){
+        this.cname=this.Productform.controls['category'].value.CategoryName;
+      }else{
+        this.cname=this.Productform.controls['category'].value;
+      }
+      let Udata={  
+        "IID":this.Productform.controls["ProductId"].value,      
+        "CategoryName":this.cname,
+        "IName": this.Productform.controls["name"].value,
+        "Detail": this.Productform.controls["description"].value,
+        "Price": this.Productform.controls["price"].value,
+        "Qnt":this.Productform.controls['quantity'].value,
+        "Discount":this.Productform.controls['Discount'].value,
+
+        "Image":this.data,
+           }
+      this._Api.postRequestUrl01(Udata,'EcartItemDetail/UpdateItemProduct').subscribe({
         next: (res) => {
           console.log(res)
         if (res.status = 200) {  
-  
+  console.log(res)
           this.loadProduct();
           this.messageService.add({severity:'success', summary: 'Successful', detail: res.Message, life: 3000});      
         }
@@ -193,22 +161,21 @@ saveProduct(){
     }
     })
   }else{
-    debugger
-      let rdata={        
-        "CategoryID":2,
-        "ProductName": this.Productform.controls["name"].value,
-        "Description": this.Productform.controls["description"].value,
-        "ImageParm":this.data,  
-      }
-      console.log(this.data)
-      this._Api.postRequestUrl01(rdata,'/EcartProduct/AddProduct').subscribe({     
-        
+      let rdata={      
+        "CategoryName":this.Productform.controls['category'].value.CategoryName,
+        "IName": this.Productform.controls["name"].value,
+        "Detail": this.Productform.controls["description"].value,
+        "Price": this.Productform.controls["price"].value,
+        "Qnt":this.Productform.controls['quantity'].value,
+        "Discount":this.Productform.controls['Discount'].value,
+        "Image":this.data
+        }
+      this._Api.postRequestUrl01(rdata,'/EcartAddProduct/AddProductItem').subscribe({    
             next: (res) => {
               console.log(res)
             if (res.status = 200) { 
               this.loadProduct();   
               this.messageService.add({severity:'success', summary: 'Successful', detail: res.Message, life: 3000});   
-              
             }
             this.products = [...this.products];
             this.productDialog = false;
@@ -223,21 +190,12 @@ saveProduct(){
         }
         })
     }
-    
     }
-  }
-  get f() {
-    return this.Productform.controls;
-  }
-  
-
+}
 GetSearchValue($event:any){
 return $event.target.value
 } 
-
-
 onUpload(event:any){
- 
   let fileReader = new FileReader();
   let byteArray: string | undefined;
   for (let file of event.files) {
@@ -248,17 +206,37 @@ onUpload(event:any){
        console.log(fileReader.result);
         var ret = fileReader.result?.toString().replace('data:'+file.type+';base64,','');
         byteArray = ret;
-     // console.log(byteArray); 
-      
     };
   }
- 
-   setTimeout(() => {
+    setTimeout(() => {
      this.data=byteArray; 
-   }, 1000);
-   //console.log( this.data)
-  
-  
+   }, 1000); 
+}
+
+deleteProduct(product: Product) {
+  this.confirmationService.confirm({
+      message: 'Are you sure you want to delete '+ product.name + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+          let deletData={
+            "ItemID":product.IID
+             }
+          this._Api.postRequestUrl01(deletData,'/EcartAddProduct/DeleteItemDetail').subscribe({
+                next: (res) => {
+            this.loadProduct();
+                  this.messageService.add({severity:'success', summary: 'Successful', detail:  res.Message, life: 3000});
+
+              },error: (err) => {
+                let errorObj = {
+                  message: err.message,
+                  err: err,
+                  response: err
+                }
+              }
+          })
+      }
+  });
 }
 
 }

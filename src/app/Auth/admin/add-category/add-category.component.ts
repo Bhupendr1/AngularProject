@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { CategoryList } from 'src/app/Category';
 import { ProductserviceService } from 'src/app/service/productservice.service';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { RowGroupHeader } from 'primeng/table';
+import { CategoryList } from 'src/app/Category';
 
 
 @Component({
@@ -22,35 +22,27 @@ import { RowGroupHeader } from 'primeng/table';
   
 })
 export class AddCategoryComponent {
-  
   productDialog: boolean=false;
-
   products!:CategoryList[];
-
-  status: CategoryList[]=[];
-
-  product!: CategoryList;
-
+  status:CategoryList[]=[];
+  product!:CategoryList;
   selectedProducts!: CategoryList[];
-
-  submitted: boolean=false;
-  statuses!: any[];
-  Categoryform!:FormGroup;
-
+  submitted:boolean=false;
+  statuses!:any[];
+  Categoryform:any=FormGroup;
   constructor(private _Api: ProductserviceService,
      private messageService: MessageService,
       private confirmationService: ConfirmationService,
-      private fb:FormBuilder
+      private Formbuilder:FormBuilder
       ) {
    }
 
    ngOnInit() {
-    this.Categoryform=this.fb.group({
-      CategoryName: [''],
-      Categorydescription: [''],
-      CategoryId: ['0']
-
-    })
+    this.Categoryform=this.Formbuilder.group({
+      CategoryId: ['0'],
+      CName:['',[Validators.required,Validators.pattern('^[a-zA-Z \-\']+'),Validators.minLength(5),Validators.maxLength(20)]],
+      CDescription: ['',Validators.required],
+       })
     this.loadDataCategory();
      this.statuses = [
           {
@@ -69,10 +61,9 @@ loadDataCategory(){
 }
 
 openNewAdd() {
-  // this.product = {...this.product};
   this.Categoryform.controls['CategoryId'].setValue(""),
-  this.Categoryform.controls['CategoryName'].setValue(""),
-  this.Categoryform.controls['Categorydescription'].setValue("")
+  this.Categoryform.controls['CName'].setValue(""),
+  this.Categoryform.controls['CDescription'].setValue("")
    this.submitted = false;
    this.productDialog = true;
  }
@@ -80,16 +71,18 @@ openNewAdd() {
 editProduct(product: CategoryList) {
   this.Categoryform.controls['CategoryId'].setValue(product.CategoryID),
   this.productDialog = true;
-  this.Categoryform.controls['CategoryName'].setValue(product.CategoryName),
-  this.Categoryform.controls['Categorydescription'].setValue(product.Description)
+  this.Categoryform.controls['CName'].setValue(product.CategoryName),
+  this.Categoryform.controls['CDescription'].setValue(product.Description)
 }
 
 deleteProduct(product: CategoryList) {
+
   this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + product.CategoryName + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        debugger
           let deletData={
             "CategoryID":product.CategoryID
           }
@@ -118,7 +111,8 @@ get f() {
   return this.Categoryform.controls;
 }
 
-saveProduct(){
+onSubmit(){
+  debugger
 this.submitted = true;
 if (this.Categoryform.invalid) {
     return;
@@ -126,8 +120,8 @@ if (this.Categoryform.invalid) {
 else{
   if (this.Categoryform.controls['CategoryId'].value!=0) {
     let Udata={        
-      "CategoryName": this.Categoryform.controls["CategoryName"].value,
-      "Description": this.Categoryform.controls["Categorydescription"].value,
+      "CategoryName": this.Categoryform.controls["CName"].value,
+      "Description": this.Categoryform.controls["CDescription"].value,
       "CategoryID":this.Categoryform.controls['CategoryId'].value
     }
     this._Api.postRequestUrl01(Udata,'EcartCategory/UpdateCategory').subscribe({
@@ -152,8 +146,8 @@ else{
 }
   else{
     let rdata={        
-      "CategoryName": this.Categoryform.controls["CategoryName"].value,
-      "Description": this.Categoryform.controls["Categorydescription"].value,
+      "CategoryName": this.Categoryform.controls["CName"].value,
+      "Description": this.Categoryform.controls["CDescription"].value,
     }
     this._Api.postRequestUrl01(rdata,'EcartCategory/AddCategory').subscribe({
           next: (res) => {

@@ -1,7 +1,8 @@
 export interface Product {
-    qty: number;
-    num: number;
+    qty:number;
+    num:number;
     id?:string;
+    IID:number;
     code?:string;
     name?:string;
     description?:string;
@@ -11,8 +12,8 @@ export interface Product {
     category?:string;
     image?:string;
     rating?:number;
-    cartTotal: number; 
-    favouriteTotal: number; 
-    Discount?: number; 
+    cartTotal:number; 
+    favouriteTotal:number; 
+    Discount?:number; 
 }
 

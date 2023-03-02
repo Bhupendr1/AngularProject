@@ -62,6 +62,7 @@ export class ProductserviceService {
    generatePrduct(): Product {
     const product: Product = {
       id: this.generateId(),
+      IID: 0,
       name: this.generateName(),
       description: "Product Description",
       price: this.generatePrice(),
@@ -159,13 +160,11 @@ export class ProductserviceService {
 
   // api calling start
   baseUrl01 = environment.baseUrl01;
-  postRequestUrl01(data: any, ACTION: string) { ACTION = `${this.baseUrl01}` + ACTION; 
-
-  return this.http.post<any>(ACTION, data); }
-  postRequestDelete(data: number, ACTION: string) { ACTION = `${this.baseUrl01}` + ACTION; 
-
-  return this.http.post<any>(ACTION, data); 
-
+  postRequestUrl01(data: any, ACTION: string) { 
+    debugger
+    ACTION = `${this.baseUrl01}` + ACTION; 
+  
+  var  result = this.http.post<any>(ACTION, data); 
+  return result;
 }
-  // api calling end
 }

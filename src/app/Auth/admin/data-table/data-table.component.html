@@ -8,7 +8,7 @@
                 <p-toast></p-toast>
             </div>
          <p-table #dt [value]="products" [rows]="6" [paginator]="true"
-                        [globalFilterFields]="['name','country.name','representative.name','status']"
+                        [globalFilterFields]="['ProductName','Description','price','category','Discount','inventoryStatus']"
                         [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
                         currentPageReportTemplate="{last} of {totalRecords} entries"
                         [showCurrentPageReport]="true">
@@ -19,39 +19,35 @@
                                     <i class="pi pi-search"></i>
                                     <input pInputText type="text"
                                         (input)="dt.filterGlobal(GetSearchValue($event), 'contains')"
-                                        placeholder="Global Search" />
+                                        placeholder="Search" />
                                 </span>
                             </div>
                         </ng-template>
                         <ng-template pTemplate="header">
                             <tr>
-                                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+                                <th pSortableColumn="ProductName">Product Name<p-sortIcon field="ProductName"></p-sortIcon>
                                 </th>
-                                <th>Description
-                                </th>
-                                <th pSortableColumn="price">Image <p-sortIcon
-                                        field="price"></p-sortIcon></th>
-                                <!-- <th pSortableColumn="category">Category <p-sortIcon
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th pSortableColumn="category">Category <p-sortIcon
                                         field="category"></p-sortIcon></th>
-                                <th pSortableColumn="rating">Discount <p-sortIcon
-                                        field="rating"></p-sortIcon></th>
-                                <th pSortableColumn="inventoryStatus">Status <p-sortIcon
-                                        field="inventoryStatus"></p-sortIcon></th> -->
-                                <th >Actions</th>
+                                <th pSortableColumn="Discount">Discount <p-sortIcon
+                                        field="Discount"></p-sortIcon></th>
+                                        <th pSortableColumn="price">Price <p-sortIcon
+                                            field="price"></p-sortIcon></th>
+                                <th pSortableColumn="inventoryStatus">Quantity<p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                                <th>Actions</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-product>
                             <tr>
-                                <td>{{product.ProductName}}</td>
-                                <td>{{product.Description}}</td>
-                                <!-- <td><img src={{ImageFun(product.Image)}} height="50" width="50"></td> -->
+                                <td>{{product.IName}}</td>
+                                <td>{{product.Detail}}</td>
                                 <td><img src="data:image/jpeg;base64,{{product.Image}}" alt="" srcset="" height="50" width="50"></td>
-                                <!-- <td>{{product.price | currency:'INR'}}</td>
-                                <td>{{product.category}}</td>
-                                <td>{{product.Discount | percent}}</td> -->
-                                <!-- <td><span
-                                        [class]="'product-badge status-' + product.inventoryStatus">{{product.inventoryStatus}}</span>
-                                </td> -->
+                                <td>{{product.CName}}</td>
+                                <td>{{product.Discount | percent}}</td>
+                                <td>{{product.Price | currency:'INR'}}</td>
+                               <td><span [class]="'product-badge status-' + product.Qnt">{{product.Qnt}}</span></td>
                                 <td>
                                     <button pButton pRipple icon="pi pi-pencil"
                                         class="p-button-rounded p-button-success mr-2"
@@ -69,72 +65,94 @@
                         </ng-template>
          </p-table>
          </div>
-         <form [formGroup]="Productform">
-         <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}"
-                    header="Product Details" [modal]="true" styleClass="p-fluid">
-                    <ng-template pTemplate="content">
-                        <div class="field">
-                            <label for="name">Name</label>
-                            <input type="text" pInputText id="name" formControlName="name"
-                               />
-                        </div>
-                        <div class="field">
-                            <label for="description">Description</label>
-                            <textarea id="description" pInputTextarea formControlName="description"
-                       ></textarea>
-                        </div>
-                        <div class="field">
-                            <label for="inventoryStatus">Inventory Status</label>
-                            <p-dropdown formControlName="inventoryStatus" inputId="inventoryStatus" [options]="statuses" placeholder="Select">
-                                <ng-template let-option pTemplate="item">
-                                    <span [class]="'product-badge status-' + option.value">{{option.label}}</span>
-                                </ng-template>
-                            </p-dropdown>
-                        </div>
-                        <div class="field">
-                            <input type="hidden" pInputText id="name" formControlName="id" />
-                        </div>
-                        <div class="field">
-                            <label for="inventoryStatus">Category</label>
-                            <p-dropdown formControlName="category" inputId="category" [options]="CategoryList" placeholder="Select">
-                                <ng-template let-option pTemplate="item">
-                                    <span [class]="'product-badge status-' + option">{{option.CategoryName}}</span>
-                                </ng-template>
-                            </p-dropdown>
-                        </div>
-                         <div class="formgrid grid">
-                            <div class="field col">
-                                <label for="price">Price</label>
-                                <p-inputNumber id="price" formControlName="price" mode="currency"
-                                    currency="INR"></p-inputNumber>
+         <form [formGroup]="Productform" (ngSubmit)="onSubmit()">
+            <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}"
+                       header="Product Details" [modal]="true" styleClass="p-fluid">
+                       <ng-template pTemplate="content">
+                           <div class="form-floating mb-3">
+                               <label for="name" class="block text-900 font-medium mb-2">Product Name</label>
+                               <input id="Name" formControlName="name" placeholder="Enter Your name" pinputtext=""  class="p-inputtext p-component p-element w-full mb-1" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['name'].errors }">
+                               <small *ngIf="submitted && f.name.errors" id="username2-help" class="p-error block">
+                                       <div *ngIf="f.name.errors.required">Product Name is Required</div>
+                                       <div *ngIf="f.name.errors.minLength">Name must be at least 4 characters long.</div>
+                                       <div *ngIf="f.name.errors.maxLength">maxLength is Reached</div>
+                                       <div *ngIf="f.name.errors.pattern">Name must be a valid</div>
+                               </small>
+                               </div>
+                               <div class="field">
+                                <input type="hidden" pInputText id="name" formControlName="ProductId"/>
                             </div>
-                            <div class="field col">
-                                <label for="quantity">Quantity</label>
-                                <p-inputNumber id="quantity"
-                                    formControlName="quantity"></p-inputNumber>
-                            </div>
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                                <label for="Discount">Discount</label>
-                                <p-inputNumber id="discount"  suffix="%" formControlName="Discount"
-                                   ></p-inputNumber>
-                            </div>
-                        </div>
-                        <div class="formgrid grid">
-                            <div class="field col">
-                              <p-fileUpload  name="files" (onSelect)=" onUpload($event)"></p-fileUpload>
-                             
-                        <!-- <p-fileUpload formControlName="image" chooseLabel="Image Upload"  name="demo[]" [maxFileSize]="300000" (onUpload)="onBasicUpload($event)" [auto]="true">File Uploade</p-fileUpload> -->
-                        </div></div>
-                    </ng-template>
+                            <div class="field">
+                               <label for="description">Description</label>
+                               <textarea id="description" pInputTextarea formControlName="description" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['description'].errors }"></textarea>
+                               <small *ngIf="submitted && f.description.errors" id="username2-help" class="p-error block">
+                                   <div *ngIf="f.description.errors.required">description Name is Required</div>
+                                   <div *ngIf="f.description.errors.minLength">description must be at least 4 characters long.</div>
+                                   <div *ngIf="f.description.errors.maxLength">maxLength is Reached</div>
+                           </small>
+                           </div>
 
-                    <ng-template pTemplate="footer">
-                        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
-                            (click)="hideDialog()"></button>
-                        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
-                            (click)="saveProduct()"></button>
-                    </ng-template>
-        </p-dialog>
-    </form>
+                         <!-- <ng-template let-selectedOption pTemplate="selectedItem">
+                             <div class="option-item option-item-value"><div [innerHTML]="selectedOption.label"></div></div>
+                         </ng-template>
+                         <ng-template let-option pTemplate="item">
+                           <div class="option-item"><div [innerHTML]="option.label"></div></div>
+                         </ng-template></p-dropdown> -->
+                           <div class="field" style="">
+                               <label for="category">Category</label>
+                               <p-dropdown formControlName="category" optionLabel="CategoryName"
+                                     [showClear]="true" inputId="category" [options]="CategoryList" placeholder="Select" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['category'].errors }">
+                                   <ng-template let-option pTemplate="CategoryList">
+                                    {{option.CategoryName}}
+                                   </ng-template>
+                               </p-dropdown>
+                               <small *ngIf="submitted && f.category.errors" id="category-help" class="p-error block">
+                                   <div *ngIf="f.category.errors.required">Category is Required</div>
+                               </small>
+                           </div>
+                           <div class="formgrid grid">
+                               <div class="field col">
+                                   <label for="price">Price</label>
+                                   <p-inputNumber id="price" formControlName="price" [ngClass]="{'ng-invalid ng-dirty': submitted && f['price'].errors }"></p-inputNumber>
+                                   <small *ngIf="submitted && f.price.errors" id="price-help" class="p-error block">
+                                       <div *ngIf="f.price.errors.required">Price is Required</div>
+                                       <div *ngIf="f.price.errors.pattern">Price Must Be Valid</div>
+                                   </small>
+                               </div>
+                               <div class="field col">
+                                   <label for="quantity">Quantity</label>
+                                   <p-inputNumber id="quantity" formControlName="quantity" [ngClass]="{'ng-invalid ng-dirty': submitted && f['quantity'].errors }">
+   
+                               </p-inputNumber>
+                               <small *ngIf="submitted && f.quantity.errors" id="quantity-help" class="p-error block">
+                                   <div *ngIf="f.quantity.errors.required">quantity is Required</div>
+                                   <div *ngIf="f.quantity.errors.pattern">quantity Must Be Valid</div>
+                               </small>
+                               </div>
+                           </div>
+                           <div class="formgrid grid">
+                               <div class="field col">
+                                   <label for="Discount">Discount</label>
+                                   <p-inputNumber formControlName="Discount"></p-inputNumber>
+                               </div>
+                           </div>
+                           <br>
+                           <div class="formgrid grid">
+                               <div class="field col">
+                                <p-fileUpload (onSelect)="onUpload($event)"></p-fileUpload>
+                                <small *ngIf="submitted && f.myFile.errors" id="file-help" class="p-error block">
+                                       <div *ngIf="f.myFile.errors.pattern">File is Required</div>
+                                   </small>
+                              </div>
+                           </div>
+                       </ng-template> 
+   
+                       <ng-template pTemplate="footer">
+                           <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+                               (click)="hideDialog()"></button>
+   
+                         <button type="submit" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"></button>
+                       </ng-template>
+           </p-dialog>
+       </form>
          <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

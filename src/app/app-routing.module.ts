@@ -19,11 +19,13 @@ import { WebLayoutComponent } from './_layout/web-layout/web-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 import { DataTableComponent } from './Auth/admin/data-table/data-table.component';
 import { AddCategoryComponent } from './Auth/admin/add-category/add-category.component';
+import { AuthGuard } from './service/course.guard.service';
 const routes: Routes = [
 //Site routes goes here 
 { 
   path: '',
   component:WebLayoutComponent,
+  // canActivateChild:[AuthGuard],
   children: [
       {path:'', component: HomeComponent},
       {path:'cart',component:CartComponent},
@@ -44,8 +46,8 @@ const routes: Routes = [
   path: 'Admin',
   component: AdminLayoutComponent, 
   children: [
-    { path: 'Dashboard', component: DataTableComponent },
-    { path: 'addCategory', component: AddCategoryComponent }
+    { path: 'Dashboard', component: DataTableComponent},
+    { path: 'addCategory', component: AddCategoryComponent}
   ]
 },
 { path: 'AdminLogin', component: AdminComponent },

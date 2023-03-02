@@ -77,12 +77,14 @@ import { AdminComponent } from './Auth/admin/admin.component';
 import { AdminpanelComponent } from './Auth/admin/adminpanel/adminpanel.component';
 import {ToolbarModule} from 'primeng/toolbar';
 import {TableModule} from 'primeng/table';
-
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { WebLayoutComponent } from './_layout/web-layout/web-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 import { DataTableComponent } from './Auth/admin/data-table/data-table.component';
 import { AddCategoryComponent } from './Auth/admin/add-category/add-category.component';
+import { AuthGuard} from './service/course.guard.service';
+import { AuthService } from './service/auth.service';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -129,6 +131,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TerminalModule,
     StepsModule,
     SpeedDialModule,
+    AutoCompleteModule,
     MenubarModule,
     TableModule,
     RadioButtonModule,
@@ -183,7 +186,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       { path: 'cart', component: CartComponent },
     ])
   ],
-  providers: [ProductserviceService,ConfirmationService, MessageService],
+  providers: [ProductserviceService,ConfirmationService, MessageService,AuthGuard,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -43,32 +43,41 @@
                 </ng-template>
                 <ng-template pTemplate="summary">
                     <div class="flex align-items-center justify-content-between">
-                    Total {{products ? products.length : 0 }} products.
+                    Total {{products ? products.length : 0 }} Category.
                     </div>
                 </ng-template>
  </p-table>
  </div>
- <form [formGroup]="Categoryform">
+ <form [formGroup]="Categoryform" (ngSubmit)="onSubmit()">
  <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}"
             header="Category Details" [modal]="true" styleClass="p-fluid">
            
             <ng-template pTemplate="content">
                 <div class="field">
                     <label for="name">Category Name</label>
-                    <input type="text" pInputText id="name" formControlName="CategoryName"/>
+                    <input type="text" pInputText id="name" formControlName="CName" [ngClass]="{'is-invalid': submitted && f['CName'].errors }">
+                    <small *ngIf="submitted && f.CName.errors" id="CName-help" class="p-error block">
+                        <div *ngIf="f.CName.errors.required">Category Name is Required</div>
+                        <div *ngIf="f.CName.errors.minLength">Category Name be at least 4 characters long.</div>
+                        <div *ngIf="f.CName.errors.pattern">Name must be a valid</div>
+                    </small>
                 </div>
                 <div class="field">
                     <input type="hidden" pInputText id="name" formControlName="CategoryId"/>
                 </div>
                 <div class="field">
                     <label for="description">Category Description</label>
-                    <textarea id="description" pInputTextarea formControlName="Categorydescription"></textarea>
+                    <textarea id="description" pInputTextarea formControlName="CDescription" [ngClass]="{'is-invalid': submitted && f['CDescription'].errors }"></textarea>
+                    <small *ngIf="submitted && f.CDescription.errors" id="CName-help" class="p-error block">
+                        <div *ngIf="f.CDescription.errors.required">Description is Required</div>
+                        <div *ngIf="f.CDescription.errors.minLength">Description at least 4 characters long.</div>
+                    </small>
                 </div>            
             </ng-template>
             <ng-template pTemplate="footer">
                 <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
                     (click)="hideDialog()"></button>
-                    <button (click)="saveProduct()" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"></button>
+                <button type="submit" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"></button>
             </ng-template>
         
 </p-dialog>

@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
 import { ProductserviceService } from 'src/app/service/productservice.service';
 export interface User {
   userName: string;
@@ -19,7 +20,8 @@ export class AdminComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router:Router,
-    private _Api:ProductserviceService
+    private _Api:ProductserviceService,
+    private authService:AuthService
     )
    {}
 
@@ -46,8 +48,10 @@ onSubmit() {
   {
 
     alert("Great!!");
+    this.authService.login();
     this.router.navigateByUrl('/Admin/Dashboard')
   }
  
 }
+
     }

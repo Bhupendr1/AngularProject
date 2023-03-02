@@ -16,3 +16,21 @@
     background: #FFCDD2;
     color: #c63737;
 }
+.is-invalid{
+    border: 1px solid red;
+}
+// $status: left;
+// .bordered {
+//   @if $status == qty<10 {
+//     border-top: 1px solid #000;
+//   }
+//   @else if $status == right {
+//     border-right: 1px solid #000;
+//   }
+//   @else if $status == bottom {
+//     border-bottom: 1px solid #000;
+//   }
+//   @else if $status == left {
+//     border-left: 1px solid #000;
+//   }
+// }
